@@ -12,8 +12,8 @@ export class InvalidArgumentsError extends ModuleError<InvalidArgumentsErrorMeta
 	constructor(readonly metadata: InvalidArgumentsErrorMetadata) {
 		super({
 			message: "Invalid Arguments were given.",
-			httpCode: HTTPStatusEnum.UNAUTHORIZED,
-			internalCode: ErrorCodeEnum.InvalidAuthentication,
+			httpCode: HTTPStatusEnum.BAD_REQUEST,
+			internalCode: ErrorCodeEnum.InvalidArgument,
 			metadata,
 		});
 	}
