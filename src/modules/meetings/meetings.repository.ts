@@ -1,6 +1,33 @@
-import { Meeting, type DatabaseStats } from "./models";
+import { Meeting, type IMeeting, type DatabaseStats } from "./models";
 
 export class MeetingRepository {
+	async getById(meetingId: string): Promise<IMeeting | null> {
+		return await Meeting.findById(meetingId).populate("tasks").lean().exec();
+	}
+
+	async getByUserId(
+		userId: string,
+		pagination: { page: number; limit?: number },
+	): Promise<IMeeting[]> {
+		const meetings = await Meeting.find({
+			userId,
+			limit: pagination?.limit,
+			skip:
+				pagination.limit != null
+					? (pagination.page - 1) * pagination.limit
+					: undefined,
+		})
+			.lean()
+			.exec();
+		return meetings;
+	}
+
+	async countByUserId(userId: string): Promise<number> {
+		return await Meeting.countDocuments({
+			userId,
+		});
+	}
+
 	async getStats(): Promise<DatabaseStats> {
 		const stats = await Meeting.aggregate([
 			{
