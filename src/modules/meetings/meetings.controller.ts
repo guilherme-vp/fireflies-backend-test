@@ -23,6 +23,17 @@ export class MeetingsController {
 		res.status(HTTPStatusEnum.OK).json(stats);
 	}
 
+	async createMeeting(req: Request, res: Response) {
+		assert(req.userId); // At this point req.userId should exist
+
+		const createdMeetingId = await this.meetingService.createMeeting({
+			userId: req.userId,
+			meeting: req.body,
+		});
+
+		res.status(HTTPStatusEnum.CREATED).json({ meetingId: createdMeetingId });
+	}
+
 	async updateMeetingTranscription(req: Request, res: Response) {
 		assert(req.userId); // At this point req.userId should exist
 

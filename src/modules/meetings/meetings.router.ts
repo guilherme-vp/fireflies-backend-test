@@ -4,7 +4,7 @@ import { MeetingsService } from "./meetings.service";
 import MeetingsController from "./meetings.controller";
 import { authMiddleware, validateExpress } from "../../middlewares";
 import { objectIdParamSchema, paginationSchema } from "../../utils";
-import { updateTranscriptSchema } from "./schemas";
+import { createMeetingSchema, updateTranscriptSchema } from "./schemas";
 
 export const router = express.Router();
 
@@ -19,6 +19,13 @@ router.get(
 	validateExpress("params", objectIdParamSchema.optional()),
 	async (req, res) => {
 		return meetingsController.getUserMeetings(req, res);
+	},
+);
+router.post(
+	"/",
+	validateExpress("body", createMeetingSchema),
+	async (req, res) => {
+		return meetingsController.createMeeting(req, res);
 	},
 );
 router.get("/stats", async (req, res) => {
