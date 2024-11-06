@@ -9,12 +9,14 @@ import {
 	limiterMiddleware,
 	urlEncodedMiddleware,
 	helmetMiddleware,
+	compressionMiddleware,
 } from "./middlewares";
 
 const app = express();
 
 app.use(bodyParserMiddleware);
 app.use(urlEncodedMiddleware);
+app.use(compressionMiddleware);
 app.use(helmetMiddleware);
 app.use(loggerMiddleware);
 app.use(limiterMiddleware);
