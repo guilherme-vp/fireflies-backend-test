@@ -2,11 +2,15 @@ import express from "express";
 import { meetingRoutes } from "./modules/meetings";
 import { taskRoutes } from "./modules/tasks";
 import { dashboardRoutes } from "./modules/dashboards";
-import { authMiddleware, loggerMiddleware } from "./middlewares";
+import {
+	authMiddleware,
+	loggerMiddleware,
+	bodyParserMiddleware,
+} from "./middlewares";
 
 const app = express();
 
-app.use(express.json());
+app.use(bodyParserMiddleware);
 app.use(loggerMiddleware);
 
 app.get("/", (_req, res) => {
