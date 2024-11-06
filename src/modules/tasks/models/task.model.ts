@@ -11,10 +11,10 @@ export interface ITask {
 }
 
 const taskSchema = new Schema<ITask & Document>({
-	meetingId: { type: Schema.Types.ObjectId, ref: "Meeting" },
-	userId: String,
-	title: String,
-	description: String,
+	meetingId: { type: Schema.Types.ObjectId, ref: "Meeting", required: true },
+	userId: { type: String, required: true },
+	title: { type: String, required: true },
+	description: { type: String, required: true },
 	status: {
 		type: String,
 		enum: ["pending", "in-progress", "completed"],
@@ -22,5 +22,11 @@ const taskSchema = new Schema<ITask & Document>({
 	},
 	dueDate: Date,
 });
+
+taskSchema.index({ meetingId: 1 });
+taskSchema.index({ userId: 1 });
+taskSchema.index({ userId: 1, status: 1 });
+taskSchema.index({ status: 1 });
+taskSchema.index({ dueDate: 1 });
 
 export const Task = mongoose.model<ITask>("Task", taskSchema);
