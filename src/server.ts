@@ -1,24 +1,13 @@
-import express from "express";
-import { meetingRoutes } from "./modules/meetings";
-import { taskRoutes } from "./modules/tasks";
-import { dashboardRoutes } from "./modules/dashboards";
-import { authMiddleware } from "./middlewares";
+import expressApp from "./app";
+import { settings } from "./config";
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-app.use(express.json());
-
-app.get("/", (req, res) => {
-	res.json({ message: "Welcome to the MeetingBot API" });
+expressApp.on("ready", () => {
+	expressApp.listen(settings.app.port, async () => {
+		console.log(`Server is running on port ${settings.app.port}`);
+	});
 });
 
-app.use("/api/meetings", authMiddleware, meetingRoutes);
-app.use("/api/tasks", authMiddleware, taskRoutes);
-app.use("/api/dashboard", authMiddleware, dashboardRoutes);
-
-await import("./database/mongo.database");
-
-app.listen(PORT, () => {
-	console.log(`Server is running on port ${PORT}`);
+// Initiates all databases before starting the Express server
+await import("./database").then(() => {
+	expressApp.emit("ready");
 });
