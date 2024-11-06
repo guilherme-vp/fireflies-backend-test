@@ -1,6 +1,7 @@
 import mongoose, { type Document, Schema } from "mongoose";
 
-export interface ITask extends Document {
+export interface ITask {
+	_id: string;
 	meetingId: mongoose.Types.ObjectId;
 	userId: string;
 	title: string;
@@ -9,7 +10,7 @@ export interface ITask extends Document {
 	dueDate: Date;
 }
 
-const taskSchema = new Schema<ITask>({
+const taskSchema = new Schema<ITask & Document>({
 	meetingId: { type: Schema.Types.ObjectId, ref: "Meeting" },
 	userId: String,
 	title: String,

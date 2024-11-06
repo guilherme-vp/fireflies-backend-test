@@ -1,6 +1,7 @@
 import mongoose, { type Document, Schema } from "mongoose";
 
-export interface IMeeting extends Document {
+export interface IMeeting {
+	_id: string;
 	userId: string;
 	title: string;
 	date: Date;
@@ -10,7 +11,7 @@ export interface IMeeting extends Document {
 	actionItems: string[];
 }
 
-const meetingSchema = new Schema<IMeeting>({
+const meetingSchema = new Schema<IMeeting & Document>({
 	userId: String,
 	title: String,
 	date: Date,
