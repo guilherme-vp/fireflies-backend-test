@@ -17,6 +17,11 @@ export class MeetingsController {
 		});
 		res.status(HTTPStatusEnum.OK).json(meetings);
 	}
+
+	async getMeetingsStats(_req: Request, res: Response) {
+		const stats = await this.meetingService.getMeetingsStats();
+		res.status(HTTPStatusEnum.OK).json(stats);
+	}
 }
 
 export default MeetingsController;

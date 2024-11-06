@@ -19,5 +19,8 @@ router.get(
 		return meetingsController.getUserMeetings(req, res);
 	},
 );
+router.get("/stats", async (req, res) => {
+	return meetingsController.getMeetingsStats(req, res);
+});
 
 export { router as meetingRoutes };
