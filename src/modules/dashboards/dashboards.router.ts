@@ -1,8 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
-import type { AuthenticatedRequest } from "../auth.middleware.js";
-import { Meeting } from "../models/meeting.js";
-import { Task } from "../models/task.js";
+import type { AuthenticatedRequest } from "../../auth.middleware.js";
+import { Meeting } from "../meetings/models/meeting.js";
+import { Task } from "../tasks/models/task.js";
 import type { Types } from "mongoose";
 
 interface UpcomingMeeting {
