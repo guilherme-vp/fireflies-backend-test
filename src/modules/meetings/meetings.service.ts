@@ -7,6 +7,26 @@ import type { CreateMeetingParams } from "./schemas";
 export class MeetingsService {
 	constructor(private readonly meetingRepository: MeetingRepository) {}
 
+	public async getMeetingById(args: {
+		userId: string;
+		meetingId: string;
+	}): Promise<IMeeting | null> {
+		const { meetingId, userId } = args;
+		const foundMeeting = await this.meetingRepository.getById(
+			meetingId,
+			userId,
+		);
+
+		if (foundMeeting == null) {
+			throw new ObjectNotFoundError({
+				entity: "Meeting",
+				identifiers: { userId, meetingId },
+			});
+		}
+		logger.info("Found meeting for user", meetingId);
+		return foundMeeting;
+	}
+
 	public async getUserMeetings(
 		userId: string,
 		pagination: PaginationParams,
