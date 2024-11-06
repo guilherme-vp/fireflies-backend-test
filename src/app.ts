@@ -6,12 +6,14 @@ import {
 	authMiddleware,
 	loggerMiddleware,
 	bodyParserMiddleware,
+	limiterMiddleware,
 } from "./middlewares";
 
 const app = express();
 
 app.use(bodyParserMiddleware);
 app.use(loggerMiddleware);
+app.use(limiterMiddleware);
 
 app.get("/", (_req, res) => {
 	res.json({ message: "Welcome to the MeetingBot API" });
