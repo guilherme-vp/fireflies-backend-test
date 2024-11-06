@@ -43,4 +43,34 @@ export class TaskRepository {
 			},
 		]);
 	}
+
+	async getGroupedTasksByStatus(userId: string) {
+		const groupedStatuses = await Task.aggregate<{
+			_id: ITask["status"];
+			count: number;
+		}>([
+			{ $match: { userId } },
+			{
+				$group: {
+					_id: "$status",
+					count: { $sum: 1 },
+				},
+			},
+		]);
+
+		const tasksByStatus = {
+			pending: 0,
+			inProgress: 0,
+			completed: 0,
+		};
+		for (const group of groupedStatuses) {
+			if (group._id === "in-progress") {
+				tasksByStatus.inProgress = group.count;
+			} else {
+				tasksByStatus[group._id] = group.count;
+			}
+		}
+
+		return tasksByStatus;
+	}
 }
