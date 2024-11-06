@@ -1,6 +1,12 @@
 import { Meeting, type IMeeting, type DatabaseStats } from "./models";
 
 export class MeetingRepository {
+	async create(
+		meeting: Pick<IMeeting, "title" | "date" | "participants">,
+	): Promise<IMeeting> {
+		return (await Meeting.create(meeting)).toJSON();
+	}
+
 	async getById(meetingId: string): Promise<IMeeting | null> {
 		return await Meeting.findById(meetingId).populate("tasks").lean().exec();
 	}
