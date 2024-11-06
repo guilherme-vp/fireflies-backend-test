@@ -12,6 +12,7 @@ interface RateLimitSettings {
 
 interface AuthenticationSettings {
 	jwtSecret: string; // Secret key used for signing JWTs
+	expirationMs: number;
 }
 
 interface SecuritySettings {
@@ -39,6 +40,7 @@ export const serverSettings: ServerSettings = {
 		},
 		authentication: {
 			jwtSecret: process.env.JWT_SECRET ?? "fireflies-key",
+			expirationMs: 60 * 60 * 1000, // 1 hour
 		},
 	},
 };
