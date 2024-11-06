@@ -2,18 +2,35 @@ import type { Request, Response } from "express";
 import type { MeetingsService } from "./meetings.service";
 import assert from "node:assert";
 import { HTTPStatusEnum } from "../../constants";
-import type { PaginationParams } from "../../utils";
+import type { TasksService } from "../tasks/tasks.service";
 
 export class MeetingsController {
-	constructor(private readonly meetingService: MeetingsService) {}
+	constructor(
+		private readonly meetingService: MeetingsService,
+		private readonly taskService: TasksService,
+	) {}
+
+	async getMeetingById(req: Request, res: Response) {
+		assert(req.userId); // At this point req.userId should exist
+
+		const foundMeeting = await this.meetingService.getMeetingById({
+			meetingId: req.params.id,
+			userId: req.userId,
+		});
+		const meetingTasks = await this.taskService.getMeetingTasks(req.params.id);
+
+		res
+			.status(HTTPStatusEnum.OK)
+			.json({ ...foundMeeting, tasks: meetingTasks });
+	}
 
 	async getUserMeetings(req: Request, res: Response) {
-		assert(req.userId); // At this poisnt req.userId should exist
+		assert(req.userId); // At this point req.userId should exist
 
-		const { page = 1, limit } = req.query as unknown as PaginationParams;
+		const { page = "1", limit } = req.query;
 		const meetings = await this.meetingService.getUserMeetings(req.userId, {
-			page,
-			limit,
+			page: Number(page),
+			limit: limit ? Number(limit) : undefined,
 		});
 		res.status(HTTPStatusEnum.OK).json(meetings);
 	}

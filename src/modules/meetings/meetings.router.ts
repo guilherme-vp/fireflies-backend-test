@@ -5,20 +5,34 @@ import MeetingsController from "./meetings.controller";
 import { authMiddleware, validateExpress } from "../../middlewares";
 import { objectIdParamSchema, paginationSchema } from "../../utils";
 import { createMeetingSchema, updateTranscriptSchema } from "./schemas";
+import { TasksService } from "../tasks/tasks.service";
+import { TaskRepository } from "../tasks/tasks.repository";
 
 export const router = express.Router();
 
 const meetingRepository = new MeetingRepository();
+const taskRepository = new TaskRepository();
+const tasksService = new TasksService(taskRepository);
 const meetingsService = new MeetingsService(meetingRepository);
-const meetingsController = new MeetingsController(meetingsService);
+const meetingsController = new MeetingsController(
+	meetingsService,
+	tasksService,
+);
 
+router.get(
+	"/",
+	authMiddleware,
+	validateExpress("query-params", paginationSchema.optional()),
+	async (req, res) => {
+		return meetingsController.getUserMeetings(req, res);
+	},
+);
 router.get(
 	"/:id",
 	authMiddleware,
-	validateExpress("query-params", paginationSchema),
-	validateExpress("params", objectIdParamSchema.optional()),
+	validateExpress("params", objectIdParamSchema),
 	async (req, res) => {
-		return meetingsController.getUserMeetings(req, res);
+		return meetingsController.getMeetingById(req, res);
 	},
 );
 router.post(
