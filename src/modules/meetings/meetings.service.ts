@@ -10,7 +10,7 @@ export class MeetingsService {
 	public async getMeetingById(args: {
 		userId: string;
 		meetingId: string;
-	}): Promise<IMeeting | null> {
+	}): Promise<IMeeting> {
 		const { meetingId, userId } = args;
 		const foundMeeting = await this.meetingRepository.getById(
 			meetingId,
@@ -82,7 +82,7 @@ export class MeetingsService {
 		transcript: string;
 	}): Promise<boolean> {
 		const { meetingId, userId } = args;
-		const hasUpdated = await this.meetingRepository.updateTranscript(args);
+		const hasUpdated = await this.meetingRepository.update(args);
 
 		if (!hasUpdated) {
 			logger.info("Could not update Meeting", { meetingId, userId });
