@@ -13,9 +13,10 @@ const meetingsService = new MeetingsService(meetingRepository);
 const meetingsController = new MeetingsController(meetingsService);
 
 router.get(
-	"/",
+	"/:id",
 	authMiddleware,
-	validateExpress("params", paginationSchema),
+	validateExpress("query-params", paginationSchema),
+	validateExpress("params", objectIdParamSchema.optional()),
 	async (req, res) => {
 		return meetingsController.getUserMeetings(req, res);
 	},
