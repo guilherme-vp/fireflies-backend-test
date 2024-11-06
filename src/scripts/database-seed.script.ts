@@ -48,7 +48,7 @@ async function seedMeetings() {
 		const meeting = new Meeting({
 			userId: userId,
 			title: `Meeting ${i + 1}`,
-			date: randomDate(new Date(2023, 0, 1), new Date()),
+			date: randomDate(new Date(2024, 0, 1), new Date(2030, 0, 1)),
 			participants: randomParticipants(),
 			transcript: `This is a sample transcript for meeting ${i + 1}.`,
 			summary: `Summary of meeting ${i + 1}`,
