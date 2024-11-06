@@ -4,13 +4,14 @@ import {
 	type IMeeting,
 } from "../modules/meetings/models/meeting.model";
 import { Task, type ITask } from "../modules/tasks/models/task.model";
+import { logger } from "../utils";
 
 const MONGODB_URI = "mongodb://localhost:27017/meetingbot";
 
 await mongoose
 	.connect(MONGODB_URI)
-	.then(() => console.log("Connected to MongoDB for seeding"))
-	.catch((err) => console.error("MongoDB connection error:", err));
+	.then(() => logger.info("Connected to MongoDB for seeding"))
+	.catch((err) => logger.error("MongoDB connection error:", err));
 
 const users = ["user1", "user2", "user3", "user4", "user5"];
 const participants = [
@@ -60,7 +61,7 @@ async function seedMeetings() {
 	}
 
 	await Meeting.insertMany(meetings);
-	console.log("Meetings seeded successfully");
+	logger.info("Meetings seeded successfully");
 }
 
 async function seedTasks() {
@@ -89,7 +90,7 @@ async function seedTasks() {
 	}
 
 	await Task.insertMany(tasks);
-	console.log("Tasks seeded successfully");
+	logger.info("Tasks seeded successfully");
 }
 
 await seedMeetings();

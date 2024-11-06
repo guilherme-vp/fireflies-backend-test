@@ -1,9 +1,10 @@
 import expressApp from "./app";
 import { settings } from "./config";
+import { logger } from "./utils";
 
 expressApp.on("ready", () => {
 	expressApp.listen(settings.app.port, async () => {
-		console.log(`Server is running on port ${settings.app.port}`);
+		logger.info(`Server is running on port ${settings.app.port}`);
 	});
 });
 
