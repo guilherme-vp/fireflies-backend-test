@@ -9,4 +9,9 @@ export class TasksService {
 		logger.info("Found tasks for user", { userId });
 		return tasks;
 	}
+
+	public async getMeetingTasks(meetingId: string) {
+		const tasks = await this.taskRepository.getByMeetingId(meetingId);
+		return tasks;
+	}
 }
