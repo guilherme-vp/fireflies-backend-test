@@ -1,11 +1,11 @@
 import type { Request, Response, NextFunction } from "express";
-import { HTTPStatusEnum } from "../constants";
 import { JWTService } from "../services";
 import { logger } from "../utils";
+import { AuthInvalidError } from "../errors";
 
 export const authMiddleware = (
 	req: Request,
-	res: Response,
+	_res: Response,
 	next: NextFunction,
 ): void => {
 	try {
@@ -23,9 +23,6 @@ export const authMiddleware = (
 		next();
 	} catch (error) {
 		logger.info(`Authentication failed ${error}`);
-		res
-			.status(HTTPStatusEnum.UNAUTHORIZED)
-			.json({ message: "Authentication required" });
-		return;
+		throw new AuthInvalidError();
 	}
 };
