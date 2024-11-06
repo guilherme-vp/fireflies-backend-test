@@ -3,12 +3,8 @@ import { HTTPStatusEnum } from "../constants";
 import { JWTService } from "../services";
 import { logger } from "../utils";
 
-export interface AuthenticatedRequest extends Request {
-	userId?: string;
-}
-
 export const authMiddleware = (
-	req: AuthenticatedRequest,
+	req: Request,
 	res: Response,
 	next: NextFunction,
 ): void => {
