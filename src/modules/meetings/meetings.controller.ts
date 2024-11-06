@@ -31,7 +31,7 @@ export class MeetingsController {
 			meetingId: req.params.id,
 			transcript: req.body.transcript,
 		});
-		res.status(HTTPStatusEnum.NO_CONTENT).json({ ok: true });
+		res.status(HTTPStatusEnum.NO_CONTENT);
 	}
 }
 
