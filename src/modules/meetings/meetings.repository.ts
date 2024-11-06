@@ -61,6 +61,9 @@ export class MeetingRepository {
 								totalMeetings: { $sum: 1 },
 								totalParticipants: { $sum: { $size: "$participants" } },
 								averageParticipants: { $avg: { $size: "$participants" } },
+								// We don't persist the duration of a meeting, so here we're arbitrary considering that every word
+								// transcribe is equivalent to 1 second.
+								// TODO: (@guilherme-vp) Persist durations in Meeting's model
 								shortestMeeting: { $min: { $strLenCP: "$transcript" } },
 								longestMeeting: { $max: { $strLenCP: "$transcript" } },
 								averageDuration: { $avg: { $strLenCP: "$transcript" } },
