@@ -1,4 +1,5 @@
 import { logger } from "../../utils";
+import type { TaskSchemaParams } from "./schemas";
 import type { TaskRepository } from "./tasks.repository";
 
 export class TasksService {
@@ -13,5 +14,15 @@ export class TasksService {
 	public async getMeetingTasks(meetingId: string) {
 		const tasks = await this.taskRepository.getByMeetingId(meetingId);
 		return tasks;
+	}
+
+	async createMeetingTasks(args: {
+		meetingId: string;
+		userId: string;
+		tasks: TaskSchemaParams[];
+	}) {
+		const createdTasks = await this.taskRepository.createTasks(args);
+		logger.info("Successfully created meeting tasks");
+		return createdTasks;
 	}
 }
