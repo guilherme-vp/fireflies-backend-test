@@ -2,9 +2,10 @@ import { Meeting, type IMeeting, type DatabaseStats } from "./models";
 
 export class MeetingRepository {
 	async create(
+		userId: string,
 		meeting: Pick<IMeeting, "title" | "date" | "participants">,
 	): Promise<IMeeting> {
-		return (await Meeting.create(meeting)).toJSON();
+		return (await Meeting.create({ ...meeting, userId })).toJSON();
 	}
 
 	async updateTranscript(args: {
