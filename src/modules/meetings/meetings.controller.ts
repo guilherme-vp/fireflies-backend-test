@@ -1,6 +1,5 @@
 import type { Request, Response } from "express";
 import type { MeetingsService } from "./meetings.service";
-import assert from "node:assert";
 import { HTTPStatusEnum } from "../../constants";
 import type { TasksService } from "../tasks/tasks.service";
 
@@ -11,8 +10,6 @@ export class MeetingsController {
 	) {}
 
 	async getMeetingById(req: Request, res: Response) {
-		assert(req.userId); // At this point req.userId should exist
-
 		const foundMeeting = await this.meetingService.getMeetingById({
 			meetingId: req.params.id,
 			userId: req.userId,
@@ -25,8 +22,6 @@ export class MeetingsController {
 	}
 
 	async getUserMeetings(req: Request, res: Response) {
-		assert(req.userId); // At this point req.userId should exist
-
 		const { page = "1", limit } = req.query;
 		const meetings = await this.meetingService.getUserMeetings(req.userId, {
 			page: Number(page),
@@ -41,8 +36,6 @@ export class MeetingsController {
 	}
 
 	async createMeeting(req: Request, res: Response) {
-		assert(req.userId); // At this point req.userId should exist
-
 		const createdMeetingId = await this.meetingService.createMeeting({
 			userId: req.userId,
 			meeting: req.body,
@@ -52,8 +45,6 @@ export class MeetingsController {
 	}
 
 	async updateMeetingTranscription(req: Request, res: Response) {
-		assert(req.userId); // At this point req.userId should exist
-
 		await this.meetingService.updateMeetingTranscript({
 			userId: req.userId,
 			meetingId: req.params.id,
