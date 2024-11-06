@@ -57,9 +57,7 @@ export class MeetingsService {
 
 	public async getMeetingsStats(): Promise<DatabaseStats> {
 		const aggregatedStats = await this.meetingRepository.getStats();
-		logger.info("Found meetings stats", {
-			aggregatedStats,
-		});
+		logger.info("Found meetings stats");
 		return aggregatedStats;
 	}
 
