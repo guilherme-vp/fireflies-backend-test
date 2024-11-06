@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { meetingRoutes } from "./modules/meetings/meetings.router";
 import { taskRoutes } from "./modules/tasks/tasks.router";
 import { dashboardRoutes } from "./modules/dashboards/dashboards.router";
-import { authMiddleware } from "./auth.middleware";
+import { authMiddleware } from "./middlewares/auth.middleware";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
