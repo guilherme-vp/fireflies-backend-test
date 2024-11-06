@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import { validateData } from "../utils";
 
-type AvailableInputTypes = "body" | "params" | "query";
+type AvailableInputTypes = "body" | "params" | "query-params";
 
 // Example of use: app.use('/', validateData('body', validationSchema), controller)
 export function validateExpress(
@@ -13,7 +13,7 @@ export function validateExpress(
 		const inputTypes: Record<AvailableInputTypes, unknown> = {
 			body: req.body,
 			params: req.params,
-			query: req.query,
+			"query-params": req.query,
 		};
 		const input = inputTypes[type];
 		validateData(input, schema);
