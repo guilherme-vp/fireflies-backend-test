@@ -8,16 +8,17 @@ export class MeetingRepository {
 		return (await Meeting.create({ ...meeting, userId })).toJSON();
 	}
 
-	async updateTranscript(args: {
-		userId: string;
-		meetingId: string;
-		transcript: string;
-	}): Promise<boolean> {
-		const { meetingId, transcript, userId } = args;
+	async update(
+		args: {
+			userId: string;
+			meetingId: string;
+		} & Partial<IMeeting>,
+	): Promise<boolean> {
+		const { meetingId, userId, ...updateArgs } = args;
 
 		const result = await Meeting.updateOne(
 			{ _id: meetingId, userId },
-			{ transcript },
+			updateArgs,
 		)
 			.lean()
 			.exec();
