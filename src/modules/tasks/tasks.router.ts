@@ -1,16 +1,17 @@
 import express from "express";
-import { Task } from "./models";
-import type { AuthenticatedRequest } from "../../middlewares";
+import { authMiddleware } from "../../middlewares";
+import { TasksController } from "./tasks.controller";
+import { TasksService } from "./tasks.service";
+import { TaskRepository } from "./tasks.repository";
 
 export const router = express.Router();
 
-router.get("/", async (req: AuthenticatedRequest, res) => {
-	try {
-		const tasks = await Task.find({ userId: req.userId });
-		res.json(tasks);
-	} catch (err) {
-		res.status(500).json({ message: (err as Error).message });
-	}
+const taskRepository = new TaskRepository();
+const tasksService = new TasksService(taskRepository);
+const tasksController = new TasksController(tasksService);
+
+router.get("/", authMiddleware, async (req, res) => {
+	return tasksController.getUserTasks(req, res);
 });
 
 export { router as taskRoutes };
