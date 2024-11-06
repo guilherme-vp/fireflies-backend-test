@@ -11,6 +11,7 @@ import {
 	helmetMiddleware,
 	compressionMiddleware,
 	unhandledExceptionsMiddleware,
+	moduleExceptionsMiddleware,
 } from "./middlewares";
 
 const app = express();
@@ -30,6 +31,7 @@ app.use("/api/meetings", authMiddleware, meetingRoutes);
 app.use("/api/tasks", authMiddleware, taskRoutes);
 app.use("/api/dashboard", authMiddleware, dashboardRoutes);
 
+app.use(moduleExceptionsMiddleware);
 app.use(unhandledExceptionsMiddleware);
 
 export default app;
