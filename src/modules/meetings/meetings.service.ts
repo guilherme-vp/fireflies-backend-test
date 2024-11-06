@@ -1,6 +1,7 @@
+import { ObjectNotFoundError } from "../../errors";
 import { type PaginationParams, logger } from "../../utils";
 import type { MeetingRepository } from "./meetings.repository";
-import type { IMeeting } from "./models";
+import type { DatabaseStats, IMeeting } from "./models";
 
 export class MeetingsService {
 	constructor(private readonly meetingRepository: MeetingRepository) {}
@@ -33,11 +34,34 @@ export class MeetingsService {
 		};
 	}
 
-	public async getMeetingsStats() {
+	public async getMeetingsStats(): Promise<DatabaseStats> {
 		const aggregatedStats = await this.meetingRepository.getStats();
 		logger.info("Found meetings stats", {
 			aggregatedStats,
 		});
 		return aggregatedStats;
+	}
+
+	public async updateMeetingTranscript(args: {
+		userId: string;
+		meetingId: string;
+		transcript: string;
+	}): Promise<boolean> {
+		const { meetingId, userId } = args;
+		const hasUpdated = await this.meetingRepository.updateTranscript(args);
+
+		if (!hasUpdated) {
+			logger.info("Could not update Meeting", { meetingId, userId });
+			throw new ObjectNotFoundError({
+				entity: "Meeting",
+				identifiers: { meetingId, userId },
+			});
+		}
+
+		logger.info("Successfully updated meeting's transcription", {
+			meetingId,
+			userId,
+		});
+		return true;
 	}
 }
