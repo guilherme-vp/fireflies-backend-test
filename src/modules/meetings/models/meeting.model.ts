@@ -7,20 +7,25 @@ export interface IMeeting {
 	title: string;
 	date: Date;
 	participants: string[];
-	transcript: string;
-	summary: string;
-	actionItems: string[];
+	transcript?: string;
+	summary?: string;
+	actionItems?: string[];
 	tasks: ITask[];
 }
 
 const meetingSchema = new Schema<IMeeting & Document>({
-	userId: String,
-	title: String,
-	date: Date,
-	participants: [String],
+	userId: { type: String, required: true },
+	title: { type: String, required: true },
+	date: { type: Date, required: true },
+	participants: { type: [String], required: true },
 	transcript: String,
 	summary: String,
-	actionItems: [String],
+	actionItems: { type: [String], default: [] },
 });
+
+meetingSchema.index({ userId: 1 });
+meetingSchema.index({ userId: 1, date: -1 });
+meetingSchema.index({ date: 1 });
+meetingSchema.index({ title: 1 });
 
 export const Meeting = mongoose.model<IMeeting>("Meeting", meetingSchema);
