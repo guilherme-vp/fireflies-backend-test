@@ -4,7 +4,7 @@ import { logger } from "../utils";
 import { AuthInvalidError } from "../errors";
 
 export const authMiddleware = (
-	req: Request,
+	req: Request & { userId?: string }, // req.userId might be undefined at this point
 	_res: Response,
 	next: NextFunction,
 ): void => {
@@ -14,7 +14,6 @@ export const authMiddleware = (
 		if (!token) throw new Error("No token provided");
 
 		const decoded = jwtService.verifyToken(token);
-
 		const userId = typeof decoded !== "string" && decoded.userId;
 		if (!userId) throw new Error("Invalid token");
 
