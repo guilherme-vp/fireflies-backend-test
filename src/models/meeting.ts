@@ -1,23 +1,23 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { type Document, Schema } from "mongoose";
 
 export interface IMeeting extends Document {
-  userId: string;
-  title: string;
-  date: Date;
-  participants: string[];
-  transcript: string;
-  summary: string;
-  actionItems: string[];
+	userId: string;
+	title: string;
+	date: Date;
+	participants: string[];
+	transcript: string;
+	summary: string;
+	actionItems: string[];
 }
 
 const meetingSchema = new Schema<IMeeting>({
-  userId: String,
-  title: String,
-  date: Date,
-  participants: [String],
-  transcript: String,
-  summary: String,
-  actionItems: [String]
+	userId: String,
+	title: String,
+	date: Date,
+	participants: [String],
+	transcript: String,
+	summary: String,
+	actionItems: [String],
 });
 
-export const Meeting = mongoose.model<IMeeting>('Meeting', meetingSchema);
+export const Meeting = mongoose.model<IMeeting>("Meeting", meetingSchema);

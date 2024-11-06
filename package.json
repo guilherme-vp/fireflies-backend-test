@@ -8,7 +8,11 @@
   },
   "scripts": {
     "start": "node --import=tsx src/server.ts",
-    "seed": "node --import=tsx src/seed.ts"
+    "seed": "node --import=tsx src/seed.ts",
+    "format": "biome format",
+    "format:fix": "npm run format --write .",
+    "lint": "biome lint",
+    "lint:fix": "npm run lint --write ."
   },
   "keywords": [],
   "author": "",
@@ -21,6 +25,7 @@
     "mongoose": "^8.7.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/express": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/mongoose": "^5.11.97",
