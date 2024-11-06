@@ -10,6 +10,7 @@ import {
 	urlEncodedMiddleware,
 	helmetMiddleware,
 	compressionMiddleware,
+	unhandledExceptionsMiddleware,
 } from "./middlewares";
 
 const app = express();
@@ -28,5 +29,7 @@ app.get("/", (_req, res) => {
 app.use("/api/meetings", authMiddleware, meetingRoutes);
 app.use("/api/tasks", authMiddleware, taskRoutes);
 app.use("/api/dashboard", authMiddleware, dashboardRoutes);
+
+app.use(unhandledExceptionsMiddleware);
 
 export default app;

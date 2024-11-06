@@ -6,3 +6,4 @@ export * from "./url-encoded.middleware";
 export * from "./helmet.middleware";
 export * from "./compression.middleware";
 export * from "./validation.middleware";
+export * from "./unhandled-exceptions.middleware";
