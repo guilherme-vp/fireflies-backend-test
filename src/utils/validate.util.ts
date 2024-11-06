@@ -8,7 +8,7 @@ export const validateData = (input: unknown, schema: z.ZodObject<any, any>) => {
 	} catch (error) {
 		if (error instanceof ZodError) {
 			const errorMessages = error.errors.map((issue) => ({
-				message: `${issue.path.join(".")} is ${issue.message}`,
+				message: issue.message,
 			}));
 			throw new InvalidArgumentsError({ details: errorMessages });
 		}
