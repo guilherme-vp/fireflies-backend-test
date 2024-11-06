@@ -7,6 +7,13 @@ export class MeetingRepository {
 		return (await Meeting.create(meeting)).toJSON();
 	}
 
+	async updateTranscript(_id: string, transcript: string): Promise<boolean> {
+		const result = await Meeting.updateOne({ _id }, { transcript })
+			.lean()
+			.exec();
+		return result.modifiedCount === 1;
+	}
+
 	async getById(meetingId: string): Promise<IMeeting | null> {
 		return await Meeting.findById(meetingId).populate("tasks").lean().exec();
 	}
