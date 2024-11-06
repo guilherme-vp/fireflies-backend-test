@@ -1,6 +1,6 @@
 import express from "express";
-import { Task } from "./models/task.js";
-import type { AuthenticatedRequest } from "../../auth.middleware.js";
+import { Task } from "./models";
+import type { AuthenticatedRequest } from "../../middlewares";
 
 export const router = express.Router();
 

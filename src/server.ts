@@ -1,9 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
-import { meetingRoutes } from "./modules/meetings/meetings.router";
-import { taskRoutes } from "./modules/tasks/tasks.router";
-import { dashboardRoutes } from "./modules/dashboards/dashboards.router";
-import { authMiddleware } from "./middlewares/auth.middleware";
+import { meetingRoutes } from "./modules/meetings";
+import { taskRoutes } from "./modules/tasks";
+import { dashboardRoutes } from "./modules/dashboards";
+import { authMiddleware } from "./middlewares";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
