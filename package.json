@@ -12,7 +12,9 @@
     "format": "biome format",
     "format:fix": "npm run format --write .",
     "lint": "biome lint",
-    "lint:fix": "npm run lint --write ."
+    "lint:fix": "npm run lint --write .",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down"
   },
   "keywords": [],
   "author": "",
