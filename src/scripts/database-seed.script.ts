@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
-import { Meeting, type IMeeting } from "./modules/meetings/models/meeting";
-import { Task, type ITask } from "./modules/tasks/models/task";
+import {
+	Meeting,
+	type IMeeting,
+} from "../modules/meetings/models/meeting.model";
+import { Task, type ITask } from "../modules/tasks/models/task.model";
 
 const MONGODB_URI = "mongodb://localhost:27017/meetingbot";
 
