@@ -3,8 +3,10 @@ import { settings } from "../config";
 
 const { combine, timestamp, printf, colorize } = winston.format;
 
-const customFormat = printf(({ level, message, timestamp }) => {
-	return `${timestamp} [${level}]: ${message}`;
+const customFormat = printf(({ level, message, timestamp, ...keys }) => {
+	const keysString =
+		Object.keys(keys).length > 0 ? `\n${JSON.stringify(keys, null, 2)}` : "";
+	return `${timestamp} [${level}]: ${message}${keysString}`;
 });
 
 const PRODUCTION_TRANSPORTS = [
