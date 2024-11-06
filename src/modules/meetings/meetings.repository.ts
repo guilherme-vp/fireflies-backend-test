@@ -24,25 +24,23 @@ export class MeetingRepository {
 		return result.modifiedCount === 1;
 	}
 
-	async getById(meetingId: string): Promise<IMeeting | null> {
-		return await Meeting.findById(meetingId).populate("tasks").lean().exec();
+	async getById(meetingId: string, userId: string): Promise<IMeeting | null> {
+		return await Meeting.findOne({ _id: meetingId, userId }).lean().exec();
 	}
 
 	async getByUserId(
 		userId: string,
 		pagination: { page: number; limit?: number },
 	): Promise<IMeeting[]> {
-		const meetings = await Meeting.find({
+		const meetingsQuery = Meeting.find({
 			userId,
-			limit: pagination?.limit,
-			skip:
-				pagination.limit != null
-					? (pagination.page - 1) * pagination.limit
-					: undefined,
-		})
-			.lean()
-			.exec();
-		return meetings;
+		});
+		if (pagination.limit) {
+			meetingsQuery
+				.limit(pagination.limit)
+				.skip((pagination.page - 1) * pagination.limit);
+		}
+		return meetingsQuery.lean().exec();
 	}
 
 	async countByUserId(userId: string): Promise<number> {
