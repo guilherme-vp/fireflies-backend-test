@@ -1,6 +1,22 @@
 import { Task, type ITask } from "./models";
+import type { TaskSchemaParams } from "./schemas";
 
 export class TaskRepository {
+	async createTasks(args: {
+		meetingId: string;
+		userId: string;
+		tasks: TaskSchemaParams[];
+	}): Promise<ITask[]> {
+		const insertInput = args.tasks.map((task) => ({
+			...task,
+			meetingId: args.meetingId,
+			userId: args.userId,
+		}));
+
+		const results = await Task.insertMany(insertInput);
+		return results.map((result) => result.toJSON());
+	}
+
 	async getByMeetingId(meetingId: string): Promise<ITask[]> {
 		return await Task.find({ meetingId }).lean().exec();
 	}
