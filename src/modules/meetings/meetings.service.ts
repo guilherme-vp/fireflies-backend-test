@@ -1,4 +1,4 @@
-import { logger } from "../../utils";
+import { type PaginationParams, logger } from "../../utils";
 import type { MeetingRepository } from "./meetings.repository";
 import type { IMeeting } from "./models";
 
@@ -7,7 +7,7 @@ export class MeetingsService {
 
 	public async getUserMeetings(
 		userId: string,
-		pagination: { page: number; limit?: number },
+		pagination: PaginationParams,
 	): Promise<{
 		total: number;
 		limit?: number;
