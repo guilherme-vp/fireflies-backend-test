@@ -5,3 +5,4 @@ export * from "./rate-limit.middleware";
 export * from "./url-encoded.middleware";
 export * from "./helmet.middleware";
 export * from "./compression.middleware";
+export * from "./validation.middleware";
