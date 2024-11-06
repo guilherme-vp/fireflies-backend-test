@@ -7,8 +7,17 @@ export class MeetingRepository {
 		return (await Meeting.create(meeting)).toJSON();
 	}
 
-	async updateTranscript(_id: string, transcript: string): Promise<boolean> {
-		const result = await Meeting.updateOne({ _id }, { transcript })
+	async updateTranscript(args: {
+		userId: string;
+		meetingId: string;
+		transcript: string;
+	}): Promise<boolean> {
+		const { meetingId, transcript, userId } = args;
+
+		const result = await Meeting.updateOne(
+			{ _id: meetingId, userId },
+			{ transcript },
+		)
 			.lean()
 			.exec();
 		return result.modifiedCount === 1;
