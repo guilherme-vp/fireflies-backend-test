@@ -29,8 +29,11 @@ router.get(
 		return meetingsController.getUserMeetings(req, res);
 	},
 );
+router.get("/stats", async (req, res) => {
+	return meetingsController.getMeetingsStats(req, res);
+});
 router.get(
-	"/:id/",
+	"/:id",
 	validateExpress("params", objectIdParamSchema),
 	async (req, res) => {
 		return meetingsController.getMeetingById(req, res);
@@ -50,9 +53,6 @@ router.post(
 		return meetingsController.summarizeMeeting(req, res);
 	},
 );
-router.get("/stats", async (req, res) => {
-	return meetingsController.getMeetingsStats(req, res);
-});
 router.put(
 	"/:id/transcript",
 	validateExpress("params", objectIdParamSchema),
