@@ -1,23 +1,22 @@
 import type { Request, Response, NextFunction } from "express";
-import { type z, ZodError } from "zod";
-import { HTTPStatusEnum } from "../constants";
-import { InvalidArgumentsError } from "../errors/invalid-arguments.error";
+import { validateData } from "../utils";
 
-// Example of use: app.use('/', validateData(validationSchema), controller)
-// biome-ignore lint/suspicious/noExplicitAny: this is intentionally generic
-export function validateData(schema: z.ZodObject<any, any>) {
-	return (req: Request, res: Response, next: NextFunction) => {
-		try {
-			schema.parse(req.body);
-			next();
-		} catch (error) {
-			if (error instanceof ZodError) {
-				const errorMessages = error.errors.map((issue) => ({
-					message: `${issue.path.join(".")} is ${issue.message}`,
-				}));
-				throw new InvalidArgumentsError({ details: errorMessages });
-			}
-			throw error;
-		}
+type AvailableInputTypes = "body" | "params" | "query";
+
+// Example of use: app.use('/', validateData('body', validationSchema), controller)
+export function validateExpress(
+	type: AvailableInputTypes,
+	// biome-ignore lint/suspicious/noExplicitAny: this is intentionally generic so we can use any kind of validator in the future
+	schema: any,
+) {
+	return (req: Request, _res: Response, next: NextFunction) => {
+		const inputTypes: Record<AvailableInputTypes, unknown> = {
+			body: req.body,
+			params: req.params,
+			query: req.query,
+		};
+		const input = inputTypes[type];
+		validateData(input, schema);
+		next();
 	};
 }
