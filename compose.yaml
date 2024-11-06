@@ -11,6 +11,8 @@ services:
       NODE_ENV: production
     ports:
       - 3000:3000
+    depends_on:
+      - mongo-db
 
   mongo-db:
     container_name: mongo-db
