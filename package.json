@@ -10,6 +10,7 @@
     "dev": "tsx watch src/server.ts",
     "start": "tsx src/server.ts",
     "seed": "tsx src/scripts/database-seed.script.ts",
+    "generate:jwt": "tsx src/scripts/generate-jwt.script.ts",
     "format": "biome format",
     "format:fix": "npm run format --write .",
     "lint": "biome lint",
