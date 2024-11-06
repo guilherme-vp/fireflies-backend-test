@@ -10,8 +10,13 @@ interface RateLimitSettings {
 	limit: number;
 }
 
+interface AuthenticationSettings {
+	jwtSecret: string; // Secret key used for signing JWTs
+}
+
 interface SecuritySettings {
 	rateLimit: RateLimitSettings;
+	authentication: AuthenticationSettings;
 }
 
 interface ServerSettings {
@@ -31,6 +36,9 @@ export const serverSettings: ServerSettings = {
 		rateLimit: {
 			windowMs: 15 * 60 * 1000, // 15 minutes,
 			limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+		},
+		authentication: {
+			jwtSecret: process.env.JWT_SECRET ?? "fireflies-key",
 		},
 	},
 };
