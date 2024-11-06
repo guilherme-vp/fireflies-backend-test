@@ -2,6 +2,7 @@ import { ObjectNotFoundError } from "../../errors";
 import { type PaginationParams, logger } from "../../utils";
 import type { MeetingRepository } from "./meetings.repository";
 import type { DatabaseStats, IMeeting } from "./models";
+import type { CreateMeetingParams } from "./schemas";
 
 export class MeetingsService {
 	constructor(private readonly meetingRepository: MeetingRepository) {}
@@ -40,6 +41,19 @@ export class MeetingsService {
 			aggregatedStats,
 		});
 		return aggregatedStats;
+	}
+
+	public async createMeeting(args: {
+		userId: string;
+		meeting: CreateMeetingParams;
+	}): Promise<string> {
+		const { userId, meeting } = args;
+		const createdMeeting = await this.meetingRepository.create(userId, meeting);
+		logger.info("Successfully created meeting", {
+			userId,
+			meetingId: createdMeeting._id,
+		});
+		return createdMeeting._id;
 	}
 
 	public async updateMeetingTranscript(args: {
