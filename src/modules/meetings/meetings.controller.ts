@@ -2,11 +2,14 @@ import type { Request, Response } from "express";
 import type { MeetingsService } from "./meetings.service";
 import { HTTPStatusEnum } from "../../constants";
 import type { TasksService } from "../tasks/tasks.service";
+import { ObjectNotFoundError } from "../../errors";
+import type { AIBotService } from "../../services";
 
 export class MeetingsController {
 	constructor(
 		private readonly meetingService: MeetingsService,
 		private readonly taskService: TasksService,
+		private readonly aiBotService: AIBotService,
 	) {}
 
 	async getMeetingById(req: Request, res: Response) {
@@ -51,6 +54,37 @@ export class MeetingsController {
 			transcript: req.body.transcript,
 		});
 		res.status(HTTPStatusEnum.NO_CONTENT);
+	}
+
+	async summarizeMeeting(req: Request, res: Response) {
+		const meetingId = req.params.id;
+		const userId = req.userId;
+		const foundMeeting = await this.meetingService.getMeetingById({
+			meetingId,
+			userId,
+		});
+		if (foundMeeting.transcript == null) {
+			throw new ObjectNotFoundError({
+				entity: "Meeting Transcript",
+				identifiers: { meetingId, userId },
+			});
+		}
+
+		const meetingSummary = await this.aiBotService.getSummaryAndActions(
+			foundMeeting.transcript,
+		);
+		await this.meetingService.updateMeetingSummary({
+			userId,
+			meetingId,
+			summary: meetingSummary.summary,
+		});
+		await this.taskService.createMeetingTasks({
+			userId,
+			meetingId,
+			tasks: meetingSummary.tasks,
+		});
+
+		res.status(HTTPStatusEnum.CREATED).json(meetingSummary);
 	}
 }
 
