@@ -1,12 +1,13 @@
-import express, { Router } from "express";
+import express from "express";
 import { meetingRoutes } from "./modules/meetings";
 import { taskRoutes } from "./modules/tasks";
 import { dashboardRoutes } from "./modules/dashboards";
-import { authMiddleware } from "./middlewares";
+import { authMiddleware, loggerMiddleware } from "./middlewares";
 
 const app = express();
 
 app.use(express.json());
+app.use(loggerMiddleware);
 
 app.get("/", (_req, res) => {
 	res.json({ message: "Welcome to the MeetingBot API" });
