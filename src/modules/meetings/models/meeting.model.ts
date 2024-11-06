@@ -1,4 +1,5 @@
 import mongoose, { type Document, Schema } from "mongoose";
+import type { ITask } from "../../tasks";
 
 export interface IMeeting {
 	_id: string;
@@ -9,6 +10,7 @@ export interface IMeeting {
 	transcript: string;
 	summary: string;
 	actionItems: string[];
+	tasks: ITask[];
 }
 
 const meetingSchema = new Schema<IMeeting & Document>({
