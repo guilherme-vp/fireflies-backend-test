@@ -134,4 +134,26 @@ export class MeetingRepository {
 		// Mongoose does not understand that we're returning only one object for all aggregations
 		return stats as unknown as DatabaseStats;
 	}
+
+	async getUpcomingMeetings(
+		userId: string,
+		limit = 5,
+	): Promise<
+		Array<
+			Pick<IMeeting, "_id" | "title" | ("date" & { participantCount: number })>
+		>
+	> {
+		return await Meeting.find(
+			{ userId, date: { $gte: new Date() } },
+			{
+				_id: 1,
+				title: 1,
+				date: 1,
+				participantCount: { $size: "$participants" }, // Count participants
+			},
+			{ limit, sort: { date: 1 } },
+		)
+			.lean()
+			.exec();
+	}
 }
