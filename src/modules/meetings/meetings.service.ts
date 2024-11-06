@@ -32,4 +32,12 @@ export class MeetingsService {
 			page,
 		};
 	}
+
+	public async getMeetingsStats() {
+		const aggregatedStats = await this.meetingRepository.getStats();
+		logger.info("Found meetings stats", {
+			aggregatedStats,
+		});
+		return aggregatedStats;
+	}
 }
