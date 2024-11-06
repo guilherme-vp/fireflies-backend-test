@@ -22,6 +22,17 @@ export class MeetingsController {
 		const stats = await this.meetingService.getMeetingsStats();
 		res.status(HTTPStatusEnum.OK).json(stats);
 	}
+
+	async updateMeetingTranscription(req: Request, res: Response) {
+		assert(req.userId); // At this point req.userId should exist
+
+		await this.meetingService.updateMeetingTranscript({
+			userId: req.userId,
+			meetingId: req.params.id,
+			transcript: req.body.transcript,
+		});
+		res.status(HTTPStatusEnum.NO_CONTENT).json({ ok: true });
+	}
 }
 
 export default MeetingsController;

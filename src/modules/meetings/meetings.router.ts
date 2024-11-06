@@ -3,7 +3,8 @@ import { MeetingRepository } from "./meetings.repository";
 import { MeetingsService } from "./meetings.service";
 import MeetingsController from "./meetings.controller";
 import { authMiddleware, validateExpress } from "../../middlewares";
-import { paginationSchema } from "../../utils";
+import { objectIdParamSchema, paginationSchema } from "../../utils";
+import { updateTranscriptSchema } from "./schemas";
 
 export const router = express.Router();
 
@@ -22,5 +23,13 @@ router.get(
 router.get("/stats", async (req, res) => {
 	return meetingsController.getMeetingsStats(req, res);
 });
+router.put(
+	"/:id/transcript",
+	validateExpress("params", objectIdParamSchema),
+	validateExpress("body", updateTranscriptSchema),
+	async (req, res) => {
+		return meetingsController.updateMeetingTranscription(req, res);
+	},
+);
 
 export { router as meetingRoutes };
