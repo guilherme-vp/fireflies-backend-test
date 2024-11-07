@@ -13,6 +13,11 @@ describe("Dashboards API", () => {
 		jwtToken = jwtService.generate({ userId });
 	});
 
+	beforeEach(async () => {
+		await Task.deleteMany();
+		await Meeting.deleteMany();
+	});
+
 	describe("GET /api/dashboard", () => {
 		it("should require authorization", async () => {
 			const response = await request(app).get("/api/dashboard");
