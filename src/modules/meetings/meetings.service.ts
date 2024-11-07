@@ -103,14 +103,7 @@ export class MeetingsService {
 		summary: string;
 	}): Promise<boolean> {
 		const { meetingId, userId } = args;
-		const hasUpdated = await this.meetingRepository.update(args);
-		if (!hasUpdated) {
-			logger.info("Could not update Meeting", { meetingId, userId });
-			throw new ObjectNotFoundError({
-				entity: "Meeting",
-				identifiers: { meetingId, userId },
-			});
-		}
+		await this.meetingRepository.update(args);
 
 		logger.info("Successfully updated meeting's summary", {
 			meetingId,
