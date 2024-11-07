@@ -22,7 +22,8 @@
 		"test:unit:watch": "npm run test:unit --watch",
 		"test:unit": "jest --config jest.config.unit.ts",
 		"test:integration:watch": "npm run test:integration --watch",
-		"test:integration": "jest --config jest.config.integration.ts --maxWorkers 4"
+		"test:integration": "jest --config jest.config.integration.ts --maxWorkers 4",
+		"typecheck": "tsc"
 	},
 	"keywords": [],
 	"author": "Guilherme Paiva",
