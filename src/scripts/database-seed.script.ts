@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { randomInt } from "crypto";
+import { randomInt } from "node:crypto";
 import {
 	Meeting,
 	type IMeeting,
