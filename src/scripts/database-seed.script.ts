@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { randomInt } from "crypto";
 import {
 	Meeting,
 	type IMeeting,
@@ -29,12 +30,12 @@ const participants = [
 
 function randomDate(start: Date, end: Date): Date {
 	return new Date(
-		start.getTime() + Math.random() * (end.getTime() - start.getTime()),
+		start.getTime() + randomInt(0, end.getTime() - start.getTime()),
 	);
 }
 
 function randomParticipants(): string[] {
-	const count = Math.floor(Math.random() * 5) + 2; // 2 to 6 participants
+	const count = randomInt(2, 7); // 2 to 6 participants
 	return participants.sort(() => 0.5 - Math.random()).slice(0, count);
 }
 
@@ -44,7 +45,7 @@ async function seedMeetings() {
 	const meetings: IMeeting[] = [];
 
 	for (let i = 0; i < 100; i++) {
-		const userId = users[Math.floor(Math.random() * users.length)];
+		const userId = users[randomInt(0, users.length)];
 		const meeting = new Meeting({
 			userId: userId,
 			title: `Meeting ${i + 1}`,
@@ -71,7 +72,7 @@ async function seedTasks() {
 	const tasks: ITask[] = [];
 
 	for (const meeting of meetings) {
-		const taskCount = Math.floor(Math.random() * 3) + 1; // 1 to 3 tasks per meeting
+		const taskCount = randomInt(1, 4); // 1 to 3 tasks per meeting
 		for (let i = 0; i < taskCount; i++) {
 			const task = new Task({
 				meetingId: meeting._id,
@@ -82,7 +83,7 @@ async function seedTasks() {
 					Math.floor(Math.random() * 3)
 				],
 				dueDate: new Date(
-					meeting.date.getTime() + Math.random() * 7 * 24 * 60 * 60 * 1000,
+					meeting.date.getTime() + randomInt(0, 7 * 24 * 60 * 60 * 1000),
 				), // Random date within a week of the meeting
 			});
 			tasks.push(task);
