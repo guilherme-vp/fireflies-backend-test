@@ -7,7 +7,7 @@ export interface IMeeting {
 	title: string;
 	date: Date;
 	participants: string[];
-	transcript?: string;
+	transcript: string;
 	summary?: string;
 	actionItems?: string[];
 	tasks: ITask[];
@@ -18,7 +18,7 @@ const meetingSchema = new Schema<IMeeting & Document>({
 	title: { type: String, required: true },
 	date: { type: Date, required: true },
 	participants: { type: [String], required: true },
-	transcript: String,
+	transcript: { type: String, default: "" },
 	summary: String,
 	actionItems: { type: [String], default: [] },
 });
