@@ -7,7 +7,7 @@ jest.mock("./database", () => ({
 	connectMongoDB: jest.fn(),
 }));
 
-jest.mock("./utils", () => ({
+jest.mock("./utils/logger.util", () => ({
 	logger: {
 		info: jest.fn(),
 		error: jest.fn(),

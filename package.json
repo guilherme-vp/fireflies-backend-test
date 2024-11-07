@@ -8,14 +8,17 @@
 	},
 	"scripts": {
 		"dev": "tsx watch --env-file=.env src/server.ts",
-		"start": "tsx src/server.ts",
+		"prebuild": "npm run clean",
+		"build": "tsc",
+		"start": "node --import=tsx dist/server.js",
+		"clean": "rm -rf dist",
 		"seed": "tsx src/scripts/database-seed.script.ts",
 		"generate:jwt": "tsx src/scripts/generate-jwt.script.ts",
 		"format": "biome format",
 		"format:fix": "npm run format --write .",
 		"lint": "biome lint",
 		"lint:fix": "npm run lint --write .",
-		"docker:up": "docker compose up -d",
+		"docker:up": "docker compose --env-file ./.env.docker up -d",
 		"docker:down": "docker compose down",
 		"commitlint": "commitlint --edit",
 		"prepare": "husky",
@@ -23,7 +26,7 @@
 		"test:unit": "jest --config jest.config.unit.ts",
 		"test:integration:watch": "npm run test:integration --watch",
 		"test:integration": "jest --config jest.config.integration.ts --maxWorkers 4",
-		"typecheck": "tsc"
+		"typecheck": "tsc --noEmit"
 	},
 	"keywords": [],
 	"author": "Guilherme Paiva",
