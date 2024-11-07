@@ -7,6 +7,8 @@ async function globalSetup() {
 		// test suite
 		const instance = await MongoMemoryServer.create();
 		const uri = instance.getUri();
+		// @ts-ignore - FIXME: (@guilherme-vp) ts-jest is not getting configs from tsconfig.json
+		// erroring the compilation when reading global.__MONGOINSTANCE as any
 		global.__MONGOINSTANCE = instance;
 		process.env.MONGO_URL = uri.slice(0, uri.lastIndexOf("/"));
 	} else {

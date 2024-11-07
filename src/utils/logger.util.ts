@@ -33,7 +33,7 @@ const logger = winston.createLogger({
 
 // If we're not in production then log to the `console` with the format:
 // `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
-if (settings.app.environment !== "production") {
+if (settings.app.environment === "development") {
 	for (const transport of PRODUCTION_TRANSPORTS) {
 		logger.remove(transport);
 	}
@@ -47,6 +47,12 @@ if (settings.app.environment !== "production") {
 			),
 		}),
 	);
+}
+
+if (settings.app.environment === "test") {
+	for (const transport of PRODUCTION_TRANSPORTS) {
+		logger.remove(transport);
+	}
 }
 
 export default logger;

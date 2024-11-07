@@ -3,7 +3,8 @@ import config from "./database-config";
 
 async function globalTeardown() {
 	if (config.Memory) {
-		// Config to decide if an mongodb-memory-server instance should be used
+		// @ts-ignore - FIXME: (@guilherme-vp) ts-jest is not getting configs from tsconfig.json
+		// erroring the compilation when reading global.__MONGOINSTANCE as any
 		const instance: MongoMemoryServer = global.__MONGOINSTANCE;
 		await instance.stop();
 	}

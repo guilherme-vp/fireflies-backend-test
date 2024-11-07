@@ -1,4 +1,4 @@
-type Environment = "development" | "production";
+type Environment = "development" | "test" | "production";
 
 interface APISettings {
 	port: number;
