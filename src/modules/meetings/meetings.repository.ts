@@ -35,7 +35,7 @@ export class MeetingRepository {
 	): Promise<IMeeting[]> {
 		const meetingsQuery = Meeting.find({
 			userId,
-		});
+		}).sort({ date: -1 });
 		if (pagination.limit) {
 			meetingsQuery
 				.limit(pagination.limit)
