@@ -1,3 +1,4 @@
+import type { OverdueTask } from "../dashboards/models";
 import { Task, type ITask } from "./models";
 import type { TaskSchemaParams } from "./schemas";
 
@@ -25,7 +26,7 @@ export class TaskRepository {
 		return await Task.find({ userId }).lean().exec();
 	}
 
-	async getOverdueTasks(userId: string) {
+	async getOverdueTasks(userId: string): Promise<OverdueTask[]> {
 		return await Task.aggregate([
 			{
 				$match: {
@@ -60,7 +61,11 @@ export class TaskRepository {
 		]);
 	}
 
-	async getGroupedTasksByStatus(userId: string) {
+	async getGroupedTasksByStatus(userId: string): Promise<{
+		pending: number;
+		inProgress: number;
+		completed: number;
+	}> {
 		const groupedStatuses = await Task.aggregate<{
 			_id: ITask["status"];
 			count: number;
