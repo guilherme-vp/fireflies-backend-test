@@ -4,7 +4,7 @@ import baseConfig from "./jest.config";
 
 const config: Config.InitialOptions = {
 	...baseConfig,
-	testMatch: ["<rootDir>/{src,test}/**/?(*.)unit.test.?(*.){js,jsx,ts,tsx}"],
+	testMatch: ["<rootDir>/src/**/*.unit.test.(js|jsx|ts|tsx)"],
 	collectCoverage: true,
 	coverageDirectory: "coverage/unit",
 };
