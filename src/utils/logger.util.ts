@@ -53,6 +53,11 @@ if (settings.app.environment === "test") {
 	for (const transport of PRODUCTION_TRANSPORTS) {
 		logger.remove(transport);
 	}
+	logger.add(
+		new winston.transports.Console({
+			level: "error",
+		}),
+	);
 }
 
 export default logger;
