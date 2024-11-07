@@ -135,8 +135,8 @@ export class MeetingRepository {
 				},
 			},
 		]);
-		// Mongoose does not understand that we're returning only one object for all aggregations
-		return stats as unknown as DatabaseStats;
+
+		return { ...stats[0], generalStats: stats[0]?.generalStats[0] };
 	}
 
 	async getUpcomingMeetings(
