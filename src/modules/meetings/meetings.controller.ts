@@ -53,7 +53,7 @@ export class MeetingsController {
 			meetingId: req.params.id,
 			transcript: req.body.transcript,
 		});
-		res.status(HTTPStatusEnum.NO_CONTENT);
+		res.status(HTTPStatusEnum.NO_CONTENT).json();
 	}
 
 	async summarizeMeeting(req: Request, res: Response) {
