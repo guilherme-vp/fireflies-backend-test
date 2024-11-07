@@ -9,6 +9,9 @@ const config: Config.InitialOptions = {
 	],
 	collectCoverage: true,
 	coverageDirectory: "coverage/integration",
+	globalSetup: "<rootDir>/test/global-setup.ts",
+	globalTeardown: "<rootDir>/test/global-teardown.ts",
+	setupFilesAfterEnv: ["<rootDir>/test/setup-file.ts"],
 };
 
 export default config;

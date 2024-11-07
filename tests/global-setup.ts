@@ -3,8 +3,8 @@ import config from "./database-config";
 
 async function globalSetup() {
 	if (config.Memory) {
-		// Config to decide if an mongodb-memory-server instance should be used
-		// it's needed in global space, because we don't want to create a new instance every test-suite
+		// Use existing mongodb-memory-server instance in global to avoid creating a new instance every
+		// test suite
 		const instance = await MongoMemoryServer.create();
 		const uri = instance.getUri();
 		global.__MONGOINSTANCE = instance;
