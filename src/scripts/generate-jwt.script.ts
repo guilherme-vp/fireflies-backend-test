@@ -1,4 +1,4 @@
-import { JWTService } from "../services";
+import { JWTService } from "../services/jwt.service";
 
 const script = (userId: string): string => {
 	const jwtService = new JWTService();

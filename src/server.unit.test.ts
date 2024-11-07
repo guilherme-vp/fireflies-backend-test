@@ -1,6 +1,6 @@
 import { connectMongoDB } from "./database";
 import { settings } from "./config";
-import { logger } from "./utils";
+import { logger } from "./utils/logger.util";
 import expressApp from "./app";
 
 jest.mock("./database", () => ({

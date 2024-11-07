@@ -1,4 +1,4 @@
-import { logger } from "../../utils";
+import { logger } from "../../utils/logger.util";
 import type { TaskSchemaParams } from "./schemas";
 import type { TaskRepository } from "./tasks.repository";
 

@@ -1,6 +1,6 @@
 import request from "supertest";
 import app from "../../../app";
-import { JWTService } from "../../../services";
+import { JWTService } from "../../../services/jwt.service";
 import { Meeting } from "../../meetings";
 import { Task } from "../../tasks";
 

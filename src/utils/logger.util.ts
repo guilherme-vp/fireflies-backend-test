@@ -17,16 +17,16 @@ const PRODUCTION_TRANSPORTS = [
 	new winston.transports.File({ filename: "logs/combined.log" }),
 ];
 
-const logger = winston.createLogger({
+export const logger = winston.createLogger({
 	levels: winston.config.npm.levels,
 	format: winston.format.json(),
 	transports: PRODUCTION_TRANSPORTS,
 	// Handle uncaught exceptions
-	exceptionHandlers: [
+	exceptionHandlers: settings.app.environment === "production" && [
 		new winston.transports.File({ filename: "logs/exceptions.log" }),
 	],
 	// Handle unhandled promise rejections
-	rejectionHandlers: [
+	rejectionHandlers: settings.app.environment === "production" && [
 		new winston.transports.File({ filename: "logs/rejections.log" }),
 	],
 });
@@ -59,5 +59,3 @@ if (settings.app.environment === "test") {
 		}),
 	);
 }
-
-export default logger;

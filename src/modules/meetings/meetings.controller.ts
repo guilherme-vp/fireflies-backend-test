@@ -3,7 +3,7 @@ import type { MeetingsService } from "./meetings.service";
 import { HTTPStatusEnum } from "../../constants";
 import type { TasksService } from "../tasks/tasks.service";
 import { ObjectNotFoundError } from "../../errors";
-import type { AIBotService } from "../../services";
+import type { AIBotService } from "../../services/ai-bot.service";
 
 export class MeetingsController {
 	constructor(

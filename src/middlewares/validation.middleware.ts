@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { validateData } from "../utils";
+import { validateData } from "../utils/validate.util";
 
 type AvailableInputTypes = "body" | "params" | "query-params";
 

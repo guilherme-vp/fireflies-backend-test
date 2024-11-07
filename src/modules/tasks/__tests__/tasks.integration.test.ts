@@ -2,7 +2,7 @@ import request from "supertest";
 import mongoose from "mongoose";
 import app from "../../../app";
 import { Task } from "../models";
-import { JWTService } from "../../../services";
+import { JWTService } from "../../../services/jwt.service";
 
 describe("Tasks API", () => {
 	let jwtToken: string;

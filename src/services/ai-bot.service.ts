@@ -5,7 +5,7 @@ import {
 	summaryAndActionsResponseSchema,
 	type SummaryAndActionsResponseParams,
 } from "../modules/meetings";
-import { logger } from "../utils";
+import { logger } from "../utils/logger.util";
 
 export class AIBotService {
 	private client: OpenAI | null = null;

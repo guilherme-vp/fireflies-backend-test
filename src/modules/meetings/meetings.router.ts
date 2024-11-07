@@ -3,11 +3,12 @@ import { MeetingRepository } from "./meetings.repository";
 import { MeetingsService } from "./meetings.service";
 import MeetingsController from "./meetings.controller";
 import { validateExpress } from "../../middlewares";
-import { objectIdParamSchema, paginationSchema } from "../../utils";
+import { objectIdParamSchema } from "../../utils/object-id-param.schema";
+import { paginationSchema } from "../../utils/pagination.schema";
 import { createMeetingSchema, updateTranscriptSchema } from "./schemas";
 import { TasksService } from "../tasks/tasks.service";
 import { TaskRepository } from "../tasks/tasks.repository";
-import { AIBotService } from "../../services";
+import { AIBotService } from "../../services/ai-bot.service";
 
 export const router = express.Router();
 

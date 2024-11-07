@@ -1,6 +1,6 @@
 import type { ErrorRequestHandler } from "express";
 import { HTTPStatusEnum } from "../constants";
-import { logger } from "../utils";
+import { logger } from "../utils/logger.util";
 import { settings } from "../config";
 
 export const unhandledExceptionsMiddleware: ErrorRequestHandler = (

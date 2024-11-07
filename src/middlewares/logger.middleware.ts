@@ -1,5 +1,5 @@
 import morgan from "morgan";
-import { logger } from "../utils";
+import { logger } from "../utils/logger.util";
 
 export const loggerMiddleware = morgan(
 	":method :url :status :res[content-length] - :response-time ms",

@@ -1,6 +1,6 @@
 import expressApp from "./app";
 import { settings } from "./config";
-import { logger } from "./utils";
+import { logger } from "./utils/logger.util";
 import { connectMongoDB } from "./database";
 
 // Initiates all databases before starting the Express server

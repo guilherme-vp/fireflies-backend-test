@@ -1,9 +1,10 @@
 import request from "supertest";
 import app from "../../../app";
 import { Meeting } from "../models";
-import { AIBotService, JWTService } from "../../../services";
+import { AIBotService } from "../../../services/ai-bot.service";
+import { JWTService } from "../../../services/jwt.service";
 import mongoose from "mongoose";
-import { logger } from "../../../utils";
+import { logger } from "../../../utils/logger.util";
 
 jest.mock("../../../services/ai-bot.service");
 

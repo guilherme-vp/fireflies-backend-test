@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
-import { JWTService } from "../services";
-import { logger } from "../utils";
+import { JWTService } from "../services/jwt.service";
+import { logger } from "../utils/logger.util";
 import { AuthInvalidError } from "../errors";
 
 export const authMiddleware = (

@@ -1,4 +1,4 @@
-import { logger } from "../../utils";
+import { logger } from "../../utils/logger.util";
 import type { MeetingRepository } from "../meetings/meetings.repository";
 import type { TaskRepository } from "../tasks/tasks.repository";
 

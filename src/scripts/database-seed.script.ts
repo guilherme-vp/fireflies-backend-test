@@ -4,7 +4,7 @@ import {
 	type IMeeting,
 } from "../modules/meetings/models/meeting.model";
 import { Task, type ITask } from "../modules/tasks/models/task.model";
-import { logger } from "../utils";
+import { logger } from "../utils/logger.util";
 
 const MONGODB_URI = "mongodb://localhost:27017/meetingbot";
 

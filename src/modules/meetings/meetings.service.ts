@@ -1,5 +1,6 @@
 import { ObjectNotFoundError } from "../../errors";
-import { type PaginationParams, logger } from "../../utils";
+import type { PaginationParams } from "../../utils/pagination.schema";
+import { logger } from "../../utils/logger.util";
 import type { MeetingRepository } from "./meetings.repository";
 import type { DatabaseStats, IMeeting } from "./models";
 import type { CreateMeetingParams } from "./schemas";
