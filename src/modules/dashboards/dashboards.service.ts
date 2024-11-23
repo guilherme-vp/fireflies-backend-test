@@ -11,10 +11,10 @@ export class DashboardsService {
 	public async getMeetingsStats(userId: string) {
 		const [totalMeetings, taskSummary, upcomingMeetings, overdueTasks] =
 			await Promise.all([
-				await this.meetingRepository.countByUserId(userId),
-				await this.taskRepository.getGroupedTasksByStatus(userId),
-				await this.meetingRepository.getUpcomingMeetings(userId),
-				await this.taskRepository.getOverdueTasks(userId),
+				this.meetingRepository.countByUserId(userId),
+				this.taskRepository.getGroupedTasksByStatus(userId),
+				this.meetingRepository.getUpcomingMeetings(userId),
+				this.taskRepository.getOverdueTasks(userId),
 			]);
 
 		logger.info("Found user's dashboard stats");
