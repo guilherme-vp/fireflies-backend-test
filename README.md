@@ -135,3 +135,53 @@ npm run generate:jwt
 
 ## Environment Variables
 The application uses environment variables for configuration. You can define these in a [.env](./.env.example) file in the project root using [.env.example](./.env.example) as a reference of the available envs.
+
+# TODO
+
+This is an exaustive list of features to implement into the application to make it more robust:
+
+### Documentation
+
+- Add automated API documentation with OpenAPI or Swagger
+- Serve documentation into a public view
+
+### Quality Assurance
+
+- Add 100% unit/integration testing coverage
+- Add E2E tests for user workflows (e.g., a user seeing a dashboard)
+- Add testing coverage rules for CI
+- Benchmark modules with tools like `autocannon` or `K6`
+
+### Observability/Performance
+
+- Implement better caching strategies with in-memory caching or external services (e.g., Redis)
+- Collect Service-level Indicators (SLIs), including:
+	- Distributed tracing
+	- API latency
+  - Request counts
+  - Memory usage
+- Add Health and Uptime check endpoints  
+- Apply log segmentation (e.g., audit logs, general logs)  
+
+### Security
+
+- Add support for OAuth2 authentication (e.g., Google, Facebook)
+- Add refresh JWT token handling
+- Implement dynamic rate-limiting for endpoints
+- Add local HTTPS support via Docker
+- Redact sensitive data in logs and API responses
+
+### Business Features
+
+- Add Multi-Tenancy support for multiple databases and environments
+- Include example UI view
+- Include A/B testing tools for feature-flagging
+- Implement API versioning for routes
+- Include internationalization for clocking setup and human-readable errors
+- Add deployment workflows for common providers, such as:
+  - AWS
+  - Google Cloud
+  - Azure
+  - Vercel
+  - Railway
+  - Heroku
